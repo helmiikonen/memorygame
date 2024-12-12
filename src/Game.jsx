@@ -46,12 +46,14 @@ const Game = () => {
     {id: 'card16', name: 'H', color: '#fae1dd', visible: false},
   ]
 
-  if (window.sessionStorage.getItem('shuffled') === undefined) {
+  const storage_shuffled = window.sessionStorage.getItem('shuffled');
+
+  if (storage_shuffled === undefined || storage_shuffled === null || storage_shuffled === "[]") {
     window.sessionStorage.setItem('shuffled', JSON.stringify(cardContent.map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)))
   }
-
+ 
   const [shuffled, setShuffled] = useSessionStorageState('shuffled', Array(0));
 
   const [pairsFound, setPairsFound] = useState(0);
