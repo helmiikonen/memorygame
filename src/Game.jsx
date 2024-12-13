@@ -27,6 +27,8 @@ const Game = () => {
     return [state, setState, resetState];
   }  
 
+  // game consists of 16 cards that make 8 pairs: two cards with the same name and color make a pair
+  // these cards are shuffled in random order for each game
   const cardContent = [ 
     {id: 'card1', name: 'A', color: '#bd5843', visible: false}, 
     {id: 'card2', name: 'A', color: '#bd5843', visible: false}, 
@@ -48,7 +50,7 @@ const Game = () => {
 
   const storage_shuffled = window.sessionStorage.getItem('shuffled');
 
-  if (storage_shuffled === undefined || storage_shuffled === null || storage_shuffled === "[]") {
+  if (storage_shuffled === undefined || storage_shuffled === null || storage_shuffled === '[]') {
     window.sessionStorage.setItem('shuffled', JSON.stringify(cardContent.map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)))

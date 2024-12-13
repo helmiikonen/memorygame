@@ -11,23 +11,27 @@ const Card = (props) => {
   const visibleCount = JSON.parse(window.sessionStorage.getItem('shuffled')).filter(i => i.visible === true).length;
 
   const handleClick = () => {
-    const cardsObj = window.sessionStorage.getItem('activeCards');
     
+    // no more than 2 cards can be open at the same time (except the pairs that have already been found)
     if (! card.isVisible && (visibleCount - (pairsFound * 2) < 2)) {
       setVisibleCard(card);
       const shuffledCopy = JSON.parse(window.sessionStorage.getItem('shuffled'));
       const index = shuffledCopy.findIndex(s => s.id === id);
       shuffledCopy[index].visible = true;
       window.sessionStorage.setItem('shuffled', JSON.stringify(shuffledCopy));
-
+      const cardsObj = window.sessionStorage.getItem('activeCards');
+      
       if (cardsObj === '' || JSON.parse(cardsObj).length ==! 1) {
+        // first card opened
         window.sessionStorage.setItem('activeCards', JSON.stringify([card]));
       } else {
+        // second card opened
         const cards = JSON.parse(cardsObj);
-        const newCards = [...cards, card]
+        const newCards = [...cards, card];
         window.sessionStorage.setItem('activeCards', JSON.stringify(newCards));
 
         if (newCards[0].name === newCards[1].name) {
+          // if two cards with the same name are open at the same time, a pair has been found
           const pairs = pairsFound + 1;
           setPairsFound(pairs);
           
@@ -61,8 +65,7 @@ const Card = (props) => {
       disabled={! timeRunning}
       fullWidth={true}
       sx={{backgroundColor: (card.isVisible || visibleCard.id === card.id) ? card.color : '#e7ecef', minHeight: 120}}
-      > 
-      {(card.isVisible || visibleCard.id === card.id) ? card.name : ''}
+      > {(card.isVisible || visibleCard.id === card.id) ? card.name : ''}
     </Button>
   )
 

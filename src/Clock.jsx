@@ -62,8 +62,8 @@ const Clock = (props) => {
     // Update time
     if (timeRunning) {
       intervalId = setInterval(() => {
-        setTime(time + 1)
-        setSeconds(seconds + 1)
+        setTime(time + 1);
+        setSeconds(seconds + 1);
         if (seconds === 59) {
           setMinutes(minutes + 1);
           setSeconds(0);

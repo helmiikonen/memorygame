@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 const App = () => (
   <Box 
-    sx={{
+    sx={{ 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center', 
@@ -14,4 +14,4 @@ const App = () => (
   </Box>
 )
 
-export default App
+export default App;
